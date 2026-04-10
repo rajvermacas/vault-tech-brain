@@ -5,6 +5,7 @@ created: 2026-04-10
 updated: 2026-04-10
 sources:
   - "[[Source---Entra-ID-OAuth-Reference]]"
+  - "[[Source---Entra-ID-Audience-Scopes-Deep-Dive]]"
 tags:
   - authentication
   - security
@@ -68,3 +69,13 @@ RSA_encrypt(SHA256(header + "." + payload), microsoft_private_key)
 ## The `aud` Claim
 
 The #1 defense against **token confusion attacks**. A token minted for App A cannot be used against App B because `aud` will mismatch. Always validate `aud` even if the signature is valid.
+
+### How `aud` is determined
+
+`aud` is derived from the **Application ID URI** configured in the target API's [[App-Registration]] under "Expose an API". It is not computed at runtime — it is a static name badge you set once in Azure portal.
+
+When [[MSAL]] requests a token with `scope=api://crick-info-buzz-backend/Scores.Read`, Entra ID splits on `/`:
+- Left: `api://crick-info-buzz-backend` → becomes `aud`
+- Right: `Scores.Read` → becomes `scp`
+
+The `api://` prefix is not a network protocol. Nothing connects to it. It is a URI-shaped unique identifier — a name badge for the backend in [[Microsoft-Entra-ID]]'s registry.

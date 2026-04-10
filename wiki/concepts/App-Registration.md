@@ -5,6 +5,7 @@ created: 2026-04-10
 updated: 2026-04-10
 sources:
   - "[[Source---Entra-ID-OAuth-Reference]]"
+  - "[[Source---Entra-ID-Audience-Scopes-Deep-Dive]]"
 tags:
   - azure
   - identity
@@ -54,3 +55,23 @@ Azure Portal → Microsoft Entra ID → App Registrations → New Registration
 
 > [!warning]
 > When the `client_secret` expires, the token exchange silently returns `401` and the entire login flow breaks. Set calendar reminders and rotate proactively.
+
+## Two-Registration Pattern (Frontend + Backend)
+
+For any app with a separate frontend and backend, Microsoft recommends **two separate App Registrations** — not one. The reason is that a frontend (React SPA) and a backend (Node.js API) have fundamentally different security properties:
+
+| | Frontend Registration | Backend Registration |
+|---|---|---|
+| Example | `crick-info-buzz-frontend` | `crick-info-buzz-backend` |
+| Client type | [[Public-vs-Confidential-Client\|Public client]] | [[Public-vs-Confidential-Client\|Confidential client]] |
+| Has `client_secret` | No | Yes |
+| Platform | Single-page application (SPA) | Web |
+| Redirect URIs | `https://crick-info-buzz.com/callback` | None |
+| Expose an API URI | Not set | `api://crick-info-buzz-backend` |
+| Exposed scopes | None | `Scores.Read`, `Scores.Write` |
+| API Permissions | `api://crick-info-buzz-backend/Scores.Read` | None |
+| Allow public client flows | Yes (uses [[PKCE]]) | No |
+
+The frontend registration's `client_id` goes into [[MSAL]] config — this is "who is asking." The backend registration's Application ID URI becomes `aud` in the [[JWT]] — this is "who the token is for."
+
+The two registrations are linked: the frontend's **API Permissions** section explicitly lists the backend's scopes, which is the formal Azure declaration that the frontend is allowed to request tokens for the backend.

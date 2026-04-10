@@ -8,3 +8,9 @@ Founding source ingested. Pages created: Source---LLM-Wiki-Idea-File, LLM-Wiki-P
 
 ## [2026-04-10] ingest | Entra ID OAuth Reference
 Source: rajvermacas/concepts — entra-id-oauth-reference.md. Pages created: Source---Entra-ID-OAuth-Reference, Microsoft-Entra-ID, OAuth-2.0-Authorization-Code-Flow, JWT, Service-Principal, App-Registration, JWKS. Total: 1 source page, 5 concept pages, 1 entity page.
+
+## [2026-04-10] ingest | Entra ID Audience Scopes Deep Dive
+Source: Socratic Q&A conversation — entra-id-audience-scopes-deep-dive.md. All concepts illustrated using crick-info-buzz app.
+Pages created: Source---Entra-ID-Audience-Scopes-Deep-Dive, Scope, PKCE, Public-vs-Confidential-Client, Redirect-URI, MSAL.
+Pages updated: App-Registration (added two-registration pattern, public/confidential table), JWT (added aud derivation section).
+Total: 1 source page, 4 new concept pages, 1 new entity page, 2 updated concept pages.
