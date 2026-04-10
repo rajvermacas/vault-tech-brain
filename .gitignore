@@ -1,0 +1,15 @@
+# Obsidian
+.obsidian/workspace*.json
+.obsidian/cache
+.trash/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Claude Code
+.claude/
+
+# Environment
+.env
+*.env
