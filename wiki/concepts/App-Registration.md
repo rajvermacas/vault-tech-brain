@@ -2,10 +2,11 @@
 title: "App Registration"
 type: concept
 created: 2026-04-10
-updated: 2026-04-10
+updated: 2026-04-11
 sources:
   - "[[Source---Entra-ID-OAuth-Reference]]"
   - "[[Source---Entra-ID-Audience-Scopes-Deep-Dive]]"
+  - "[[Source---Entra-ID-App-Roles-BFF-JWT-Signing]]"
 tags:
   - azure
   - identity
@@ -42,6 +43,31 @@ Azure Portal → Microsoft Entra ID → App Registrations → New Registration
   → COPY VALUE IMMEDIATELY (shown only once)
 ```
 
+## Full Property Sections
+
+The App Registration has 8 configuration sections:
+
+1. **Identity (Overview)** — Display name, client_id, tenant ID, supported account types
+2. **Authentication** — Platform type, Redirect URIs, implicit grant toggles, logout URL
+3. **Certificates & Secrets** — Client secrets, certificates, federated identity credentials
+4. **API Permissions** — Delegated and application permissions (wishlist — not yet granted)
+5. **Expose an API** — Application ID URI, scopes, authorized client applications (backend registrations only)
+6. **App Roles** — RBAC role definitions. See [[App-Roles]] for full mechanics.
+7. **Token Configuration** — Optional claims, group claims
+8. **Manifest** — Raw JSON including advanced properties like `accessTokenAcceptedVersion`
+
+See [[Source---Entra-ID-App-Roles-BFF-JWT-Signing]] for the complete property-by-property breakdown.
+
+## Cardinality
+
+| Direction | Cardinality |
+|---|---|
+| Tenant → App Registrations | 1 → MANY |
+| App Registration → Tenant (home) | MANY → 1 |
+| App Registration → Service Principals | 1 → MANY (one per tenant) |
+
+One tenant owns many App Registrations. Each App Registration belongs to exactly one home tenant. These are two independent directional statements — not a 1-to-1 relationship.
+
 ## Mental Models
 
 | Model | App Registration | Service Principal |
@@ -63,7 +89,7 @@ For any app with a separate frontend and backend, Microsoft recommends **two sep
 | | Frontend Registration | Backend Registration |
 |---|---|---|
 | Example | `crick-info-buzz-frontend` | `crick-info-buzz-backend` |
-| Client type | [[Public-vs-Confidential-Client\|Public client]] | [[Public-vs-Confidential-Client\|Confidential client]] |
+| Client type | [[Public-vs-Confidential-Client|Public client]] | [[Public-vs-Confidential-Client|Confidential client]] |
 | Has `client_secret` | No | Yes |
 | Platform | Single-page application (SPA) | Web |
 | Redirect URIs | `https://crick-info-buzz.com/callback` | None |

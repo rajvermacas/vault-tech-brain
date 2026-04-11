@@ -2,9 +2,10 @@
 title: "Service Principal"
 type: concept
 created: 2026-04-10
-updated: 2026-04-10
+updated: 2026-04-11
 sources:
   - "[[Source---Entra-ID-OAuth-Reference]]"
+  - "[[Source---Entra-ID-App-Roles-BFF-JWT-Signing]]"
 tags:
   - azure
   - identity
@@ -53,6 +54,27 @@ Both single-tenant and multi-tenant apps require an SPN. Without one:
 ## Credentials Clarification
 
 The `client_id` and `client_secret` live on the [[App-Registration]], not the SPN. Engineers colloquially say "SPN credentials" but technically the SPN is WHO acts at runtime, while the App Registration is WHERE credentials are stored.
+
+## Home SPN vs Guest SPN
+
+When an App Registration is used across multiple tenants:
+
+- **Home SPN** — created automatically in the home tenant when the App Registration is created. No consent needed.
+- **Guest SPN** — created in each external tenant when a user from that tenant consents (or admin pre-consents). Same `appId` as home SPN, but different Object ID and independent granted permissions.
+
+Each tenant's admin independently controls what permissions they grant their guest SPN. A tenant's Conditional Access policies apply to the guest SPN in that tenant.
+
+## App Role Assignments
+
+The SPN (Enterprise Application) is also where [[App-Roles]] are assigned to users and groups:
+
+```
+Enterprise Applications → [Your App] → Users and Groups → Add Assignment
+  → Select user or security group
+  → Select App Role (defined on the App Registration)
+```
+
+This is the assignment layer — separate from the definition layer (App Registration).
 
 ## Permissions Model
 

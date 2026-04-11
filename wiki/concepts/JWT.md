@@ -2,10 +2,11 @@
 title: "JWT"
 type: concept
 created: 2026-04-10
-updated: 2026-04-10
+updated: 2026-04-11
 sources:
   - "[[Source---Entra-ID-OAuth-Reference]]"
   - "[[Source---Entra-ID-Audience-Scopes-Deep-Dive]]"
+  - "[[Source---Entra-ID-App-Roles-BFF-JWT-Signing]]"
 tags:
   - authentication
   - security
@@ -79,3 +80,14 @@ When [[MSAL]] requests a token with `scope=api://crick-info-buzz-backend/Scores.
 - Right: `Scores.Read` → becomes `scp`
 
 The `api://` prefix is not a network protocol. Nothing connects to it. It is a URI-shaped unique identifier — a name badge for the backend in [[Microsoft-Entra-ID]]'s registry.
+
+## Corrected Signing Mental Model
+
+> [!warning]
+> **Common misconception:** `signature = hash(private_key, header.payload)` — the private key is NOT an input to the hash function.
+
+The hash (SHA-256) and the encryption (RSA) are two separate sequential operations. The key only appears in the second step. See [[JWT-Signature-Verification]] for the full step-by-step breakdown.
+
+## The `roles` Claim
+
+Carries [[App-Roles]] assigned to the user via the Enterprise Application. Checked by the backend for RBAC decisions. Absent (not an empty array) when the user has no role assignments.

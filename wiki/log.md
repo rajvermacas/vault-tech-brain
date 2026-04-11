@@ -14,3 +14,16 @@ Source: Socratic Q&A conversation — entra-id-audience-scopes-deep-dive.md. All
 Pages created: Source---Entra-ID-Audience-Scopes-Deep-Dive, Scope, PKCE, Public-vs-Confidential-Client, Redirect-URI, MSAL.
 Pages updated: App-Registration (added two-registration pattern, public/confidential table), JWT (added aud derivation section).
 Total: 1 source page, 4 new concept pages, 1 new entity page, 2 updated concept pages.
+
+## [2026-04-11] lint | 3 contradictions fixed, 4 broken links resolved
+Scanned all 26 wiki pages.
+Contradictions fixed: (1) OAuth-2.0-Authorization-Code-Flow.md now documents both Pattern 1 (SPA) and Pattern 2 (BFF) with separate step tables, replacing the BFF-only view that was presented as universal. (2) PKCE.md now clarifies that code_verifier is sent by MSAL in Pattern 1 vs forwarded via backend in Pattern 2.
+Broken links fixed: (3) Backslash typo in App-Registration.md line 92 (`Public-vs-Confidential-Client\|` → `Public-vs-Confidential-Client|`). (4) Three unresolvable wikilinks in Obsidian.md (Obsidian-Web-Clipper, Dataview, Marp) converted to plain text — these are Obsidian tooling features unlikely to grow into wiki pages.
+No orphan pages found. All pages have ≥2 inbound links.
+Open questions logged: refresh token renewal in BFF, Conditional Access concept page, token confusion attacks, admin vs user consent mechanics.
+
+## [2026-04-11] ingest | Entra ID App Roles, BFF Pattern, JWT Signing
+Source: Socratic session — entra-id-app-roles-bff-jwt-signing.md. Covered all App Registration property sections, App Roles end-to-end mechanics, tenant/subscription cardinality, home tenant definition, SPA vs BFF OAuth patterns, XSS attack vectors (fetch monkey-patching), BFF full cookie traffic path, and RS256 JWT signing mechanics.
+Pages created: Source---Entra-ID-App-Roles-BFF-JWT-Signing, App-Roles, BFF-Pattern, XSS, JWT-Signature-Verification.
+Pages updated: App-Registration (full property sections, cardinality table), Service-Principal (home vs guest SPN, App Role assignment layer), JWT (roles claim, corrected signing mental model).
+Total: 1 raw source, 1 source page, 4 new concept pages, 3 updated concept pages.
