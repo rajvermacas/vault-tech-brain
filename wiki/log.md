@@ -36,3 +36,13 @@ Pages updated: App-Roles (assignment-required nuance, token claim edge cases), S
 ## [2026-04-12] lint | Entra ID app-role fact check and graph scan
 Fact-checked the app-role material against current Microsoft Learn docs and corrected the earlier overstatement that Entra ID always issues a token for unassigned principals.
 Link graph scan after patching found 4 unresolved wikilinks and fixed them immediately: 3 legacy tool-name links in Source---LLM-Wiki-Idea-File and 1 literal syntax example in Obsidian. No orphan pages remain; the new source page is indexed and cross-linked. Remaining open question: whether to ingest separate Microsoft docs pages for broader Entra topics beyond app roles.
+
+## [2026-04-12] ingest | Microsoft Learn Conditional Access Overview
+Source: Microsoft Learn documentation captured in raw/microsoft-learn-conditional-access-overview-2026-04-12.md.
+Pages created: Source---Microsoft-Learn-Conditional-Access-Overview, Conditional-Access.
+Pages updated: Microsoft-Entra-ID (added Conditional Access control layer), Service-Principal (linked Conditional Access references), index.md.
+
+## [2026-04-12] ingest | Microsoft Learn Permissions and Consent Overview
+Source: Microsoft Learn documentation captured in raw/microsoft-learn-permissions-consent-overview-2026-04-12.md.
+Pages created: Source---Microsoft-Learn-Permissions-and-Consent-Overview, Consent.
+Pages updated: Scope (explicit consent linkage), Microsoft-Entra-ID (consent control layer), index.md.

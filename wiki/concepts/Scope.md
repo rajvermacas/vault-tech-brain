@@ -2,9 +2,10 @@
 title: "Scope"
 type: concept
 created: 2026-04-10
-updated: 2026-04-10
+updated: 2026-04-12
 sources:
   - "[[Source---Entra-ID-Audience-Scopes-Deep-Dive]]"
+  - "[[Source---Microsoft-Learn-Permissions-and-Consent-Overview]]"
 tags:
   - authentication
   - oauth
@@ -49,7 +50,7 @@ Scope is checked at **two completely separate moments**:
 When MSAL requests `scope=api://crick-info-buzz-backend/Scores.Read`, Entra ID checks:
 
 1. Does `Scores.Read` exist as a defined scope on `api://crick-info-buzz-backend`? No → reject, token never issued.
-2. Has the user consented to this scope? No → show consent screen to Mrinal: *"crick-info-buzz wants to read your cricket scores data. Allow?"* After Mrinal clicks Allow, consent is recorded permanently and the screen never reappears.
+2. Has the user or an admin granted [[Consent]] for this scope? No → show consent screen to Mrinal: *"crick-info-buzz wants to read your cricket scores data. Allow?"* After consent is granted, Entra records that approval for future requests.
 3. Both pass → token minted with `"scp": "Scores.Read"`.
 
 ### Stage 2 — Backend middleware on every request
@@ -66,7 +67,7 @@ Entra ID cannot know in advance which endpoint will be called — endpoint-level
 
 ## Why Both Stages Are Necessary
 
-Entra ID's stage ensures the scope exists and the user consented. The backend's stage ensures the token carries the right scope for *this specific endpoint*. Example:
+Entra ID's stage ensures the scope exists and the required [[Consent]] is in place. The backend's stage ensures the token carries the right scope for *this specific endpoint*. Example:
 
 - Mrinal has `Scores.Read` in his token.
 - He calls `POST /matches` which requires `Scores.Write`.
@@ -79,4 +80,5 @@ Entra ID's stage ensures the scope exists and the user consented. The backend's 
 - [[JWT]] — `scp` claim in the token payload carries the granted scope
 - [[MSAL]] — the library that includes scope in the authorize request
 - [[OAuth-2.0-Authorization-Code-Flow]] — scope is requested in Step 1, carried in the token from Step 7 onward
+- [[Consent]] — approval layer that determines whether the requested scope can be granted
 - [[Microsoft-Entra-ID]] — checks scope existence and consent at issuance time

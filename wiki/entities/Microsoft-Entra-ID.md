@@ -2,9 +2,11 @@
 title: "Microsoft Entra ID"
 type: entity
 created: 2026-04-10
-updated: 2026-04-10
+updated: 2026-04-12
 sources:
   - "[[Source---Entra-ID-OAuth-Reference]]"
+  - "[[Source---Microsoft-Learn-Conditional-Access-Overview]]"
+  - "[[Source---Microsoft-Learn-Permissions-and-Consent-Overview]]"
 tags:
   - azure
   - identity-provider
@@ -22,6 +24,7 @@ Microsoft's cloud identity and access management service, formerly known as **Az
 - Maintains [[App-Registration]] records, permissions, and consent records
 - Publishes public keys via [[JWKS]] so any server can verify tokens
 - Hosts [[Service-Principal]] objects per tenant
+- Evaluates [[Conditional-Access]] policies during sign-in and resource access decisions
 
 ## Key Endpoints
 
@@ -34,3 +37,10 @@ Microsoft's cloud identity and access management service, formerly known as **Az
 ## Design Principle
 
 Your application never handles user credentials. Authentication is fully delegated to Entra ID. Your app only receives and validates tokens.
+
+## Related Control Layers
+
+- [[Scope]] and consent determine what delegated access a client app can request.
+- [[Consent]] records whether delegated or application permissions were approved.
+- [[App-Roles]] define RBAC values that can appear in tokens.
+- [[Conditional-Access]] evaluates sign-in context and can require extra controls or block access entirely.

@@ -2,10 +2,11 @@
 title: "Service Principal"
 type: concept
 created: 2026-04-10
-updated: 2026-04-11
+updated: 2026-04-12
 sources:
   - "[[Source---Entra-ID-OAuth-Reference]]"
   - "[[Source---Entra-ID-App-Roles-BFF-JWT-Signing]]"
+  - "[[Source---Microsoft-Learn-Conditional-Access-Overview]]"
 tags:
   - azure
   - identity
@@ -23,7 +24,7 @@ The **runtime instance** of an [[App-Registration]] inside a specific [[Microsof
 - **Granted permissions** — what was actually consented to (the stamp, not the wishlist)
 - User and group assignments
 - Sign-in logs for this tenant's users
-- Conditional Access policies applied
+- [[Conditional-Access|Conditional Access]] policies applied
 - Admin consent records
 
 ## Relationship to App Registration
@@ -62,7 +63,7 @@ When an App Registration is used across multiple tenants:
 - **Home SPN** — created automatically in the home tenant when the App Registration is created. No consent needed.
 - **Guest SPN** — created in each external tenant when a user from that tenant consents (or admin pre-consents). Same `appId` as home SPN, but different Object ID and independent granted permissions.
 
-Each tenant's admin independently controls what permissions they grant their guest SPN. A tenant's Conditional Access policies apply to the guest SPN in that tenant.
+Each tenant's admin independently controls what permissions they grant their guest SPN. A tenant's [[Conditional-Access|Conditional Access]] policies apply to the guest SPN in that tenant.
 
 ## App Role Assignments
 
