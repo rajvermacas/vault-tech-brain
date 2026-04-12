@@ -2,7 +2,7 @@
 title: "Source - Entra ID App Roles, BFF Pattern, JWT Signing"
 type: source
 created: 2026-04-11
-updated: 2026-04-11
+updated: 2026-04-12
 sources:
   - "raw/entra-id-app-roles-bff-jwt-signing.md"
 tags:
@@ -17,6 +17,9 @@ tags:
 
 # Source - Entra ID App Roles, BFF Pattern, JWT Signing
 
+> [!warning]
+> Fact-check correction (2026-04-12): this source session correctly captured the definition-vs-assignment model for app roles, but it overstated token issuance behavior. See [[Source---Microsoft-Learn-Entra-ID-App-Roles-Fact-Check]] and [[App-Roles]] for the corrected wording around **Assignment required?**, omitted `roles` claims, and API/framework enforcement.
+
 ## Summary
 
 A Socratic deep dive covering all properties of [[App-Registration]], tenant/subscription cardinality, [[App-Roles]] mechanics end-to-end, the two OAuth token patterns ([[OAuth-2.0-Authorization-Code-Flow#Pattern-1-SPA|Pattern 1 SPA]] vs [[BFF-Pattern|Pattern 2 BFF]]), XSS attack vectors against browser-stored tokens, and the correct mechanics of [[JWT]] RS256 signature verification.
@@ -25,8 +28,8 @@ A Socratic deep dive covering all properties of [[App-Registration]], tenant/sub
 
 - **App Role definition fields** (confirmed via Microsoft docs): Display name, Allowed member types, Value, Description, State. There is NO `group_assignment` property on the App Role definition itself.
 - **Group-to-role mapping lives on the Enterprise Application (Service Principal)**, not the App Registration. Path: Enterprise Applications → Users and Groups → Add Assignment.
-- **Entra ID never throws 403.** It always issues the JWT (with `roles` claim if assigned, absent if not). The backend throws 403 after checking the `roles` claim.
-- **`roles` claim is absent (not empty array)** when the user has no role assignments.
+- **Unassigned principals often receive tokens without a `roles` claim**, but Entra ID can also deny token issuance earlier when the Enterprise Application is configured with **Assignment required? = Yes**.
+- **`roles` claim is typically omitted (not emitted as an empty array)** when no applicable role assignment is present.
 - **Two valid OAuth patterns exist for SPA + backend:** Pure SPA (MSAL exchanges token in browser, no client_secret) and BFF (backend exchanges token using client_secret, browser only gets an HttpOnly session cookie).
 - **Microsoft docs explicitly state:** "Public clients, which include native applications and single page apps, must not use secrets or certificates when redeeming an authorization code."
 - **XSS can steal tokens via monkey-patching `window.fetch`** even when MSAL stores tokens in memory (not localStorage), by intercepting the Authorization header on outgoing requests.
@@ -55,3 +58,4 @@ A Socratic deep dive covering all properties of [[App-Registration]], tenant/sub
 - [[PKCE]] — code_verifier sent to backend in BFF pattern alongside auth code
 - [[Scope]] — contrasted with App Roles (scp vs roles claim)
 - [[OAuth-2.0-Authorization-Code-Flow]] — two-pattern distinction (SPA vs BFF)
+- [[Source---Microsoft-Learn-Entra-ID-App-Roles-Fact-Check]] — official-doc correction for assignment-required and claim-emission nuance

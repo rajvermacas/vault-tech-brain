@@ -2,7 +2,7 @@
 title: "Source - LLM Wiki Idea File"
 type: source
 created: 2026-04-10
-updated: 2026-04-10
+updated: 2026-04-12
 sources:
   - "raw/llm-wiki-idea-file.md"
 tags:
@@ -47,4 +47,4 @@ Three core workflows:
 - Contrasts with [[RAG]] as an approach to LLM + document workflows.
 - Recommends [[Obsidian]] as the browsing/viewing layer.
 - Suggests [[qmd]] as an optional search tool at scale.
-- References tools: [[Obsidian-Web-Clipper]], [[Marp]], [[Dataview]].
+- References tools: Obsidian Web Clipper, Marp, Dataview.

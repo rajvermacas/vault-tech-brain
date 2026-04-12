@@ -5,6 +5,7 @@
 - [[Source---Entra-ID-OAuth-Reference]] — Comprehensive FAQ-style guide to Microsoft Entra ID, OAuth 2.0, JWT, SPNs, and permissions (2026-04-10)
 - [[Source---Entra-ID-Audience-Scopes-Deep-Dive]] — Socratic deep dive: how aud is derived, api:// naming, scopes, two-registration pattern, PKCE, Redirect URIs (2026-04-10)
 - [[Source---Entra-ID-App-Roles-BFF-JWT-Signing]] — All App Registration properties, App Roles mechanics, BFF pattern, XSS attack vectors, RS256 signing corrected (2026-04-11)
+- [[Source---Microsoft-Learn-Entra-ID-App-Roles-Fact-Check]] — Microsoft-doc fact check for app-role definition, assignment-required behavior, and token claim edge cases (2026-04-12)
 
 ## Entities
 - [[Vannevar-Bush]] — Engineer who proposed the Memex (1945), spiritual predecessor to the LLM Wiki

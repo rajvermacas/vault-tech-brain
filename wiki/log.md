@@ -27,3 +27,12 @@ Source: Socratic session — entra-id-app-roles-bff-jwt-signing.md. Covered all 
 Pages created: Source---Entra-ID-App-Roles-BFF-JWT-Signing, App-Roles, BFF-Pattern, XSS, JWT-Signature-Verification.
 Pages updated: App-Registration (full property sections, cardinality table), Service-Principal (home vs guest SPN, App Role assignment layer), JWT (roles claim, corrected signing mental model).
 Total: 1 raw source, 1 source page, 4 new concept pages, 3 updated concept pages.
+
+## [2026-04-12] ingest | Microsoft Learn Entra ID App Roles Fact Check
+Source: Microsoft Learn documentation captured in raw/microsoft-learn-entra-id-app-roles-fact-check-2026-04-12.md.
+Pages created: Source---Microsoft-Learn-Entra-ID-App-Roles-Fact-Check.
+Pages updated: App-Roles (assignment-required nuance, token claim edge cases), Source---Entra-ID-App-Roles-BFF-JWT-Signing (fact-check correction callout), index.md.
+
+## [2026-04-12] lint | Entra ID app-role fact check and graph scan
+Fact-checked the app-role material against current Microsoft Learn docs and corrected the earlier overstatement that Entra ID always issues a token for unassigned principals.
+Link graph scan after patching found 4 unresolved wikilinks and fixed them immediately: 3 legacy tool-name links in Source---LLM-Wiki-Idea-File and 1 literal syntax example in Obsidian. No orphan pages remain; the new source page is indexed and cross-linked. Remaining open question: whether to ingest separate Microsoft docs pages for broader Entra topics beyond app roles.

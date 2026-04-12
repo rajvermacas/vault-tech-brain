@@ -2,9 +2,10 @@
 title: "App Roles"
 type: concept
 created: 2026-04-11
-updated: 2026-04-11
+updated: 2026-04-12
 sources:
   - "[[Source---Entra-ID-App-Roles-BFF-JWT-Signing]]"
+  - "[[Source---Microsoft-Learn-Entra-ID-App-Roles-Fact-Check]]"
 tags:
   - azure
   - identity
@@ -14,16 +15,16 @@ tags:
 
 # App Roles
 
-A mechanism for **role-based access control (RBAC)** inside your own application, defined on an [[App-Registration]] and enforced by the backend. Distinct from [[Scope|OAuth scopes]].
+A mechanism for **role-based access control (RBAC)** inside your own application, defined on an [[App-Registration]]. App-role assignments affect token contents, and enforcement can happen either during token issuance or in the protected app/API depending on enterprise-app settings. Distinct from [[Scope|OAuth scopes]].
 
 ## App Roles vs Scopes
 
 | | App Roles | Scopes |
 |---|---|---|
 | JWT claim | `roles` | `scp` |
-| Answers | Who the user IS | What the app can DO |
+| Answers | What role the calling principal has | What the app can DO |
 | Model | RBAC | Delegated permissions |
-| Granted by | Admin assigns users/groups | User consents on consent screen |
+| Granted by | Admin assigns users, groups, or applications | User or admin consent |
 
 ## Definition Fields (on the App Registration)
 
@@ -38,6 +39,8 @@ Confirmed via Microsoft official docs. There is **no `group_assignment` property
 | State | Enabled / Disabled toggle | Enabled |
 
 `Allowed member types` is a **type constraint**, not a reference to any specific group. It declares what *category* of things can be assigned — not which specific groups.
+
+In the manifest, app roles also carry generated metadata such as `id`, `isEnabled`, and `origin`.
 
 ## Two-Layer Model: Definition vs Assignment
 
@@ -65,18 +68,19 @@ The [[App-Registration]] is the definition layer. The [[Service-Principal]] (Ent
 2. Entra ID checks assignments on Enterprise Application (Service Principal)
 3. User is in Security Group X → Group X is assigned Reports.Viewer
 4. JWT issued with: roles: ["Reports.Viewer"]
-5. User NOT in any assigned group → roles claim ABSENT from JWT (not empty array)
-6. Backend receives JWT, checks roles claim
-7. Missing or wrong role → 403 (thrown by backend, not Entra ID)
-8. Correct role present → request proceeds
+5. User NOT in any assigned group → token may be issued without a `roles` claim
+6. If the Enterprise Application has `Assignment required? = Yes`, Entra ID can deny token issuance to unassigned principals instead
+7. If a token reaches the backend, the backend/framework checks `roles`
+8. Missing or wrong role → app/framework returns an authorization failure (commonly 401 or 403)
+9. Correct role present → request proceeds
 ```
 
 > [!warning]
-> Entra ID **never throws 403**. It always issues the JWT. The `roles` claim is either present (with the assigned values) or absent entirely. The 403 decision belongs entirely to the backend.
+> Fact-check correction (2026-04-12): the earlier wording here overstated token issuance behavior. Microsoft documents that Entra ID can deny token issuance when the Enterprise Application is configured with **Assignment required? = Yes**. Once a token is issued, missing-role handling is then up to the protected app or framework.
 
 ## Absence vs Empty Array
 
-When a user has no role assignments, the `roles` claim is **absent from the JWT** — not an empty array. Backend code must handle this:
+When no app-role assignment is present, the `roles` claim is typically **omitted** rather than emitted as an empty array. Backend code should treat the claim as optional:
 
 ```javascript
 // Wrong — crashes if roles claim is absent
@@ -90,6 +94,11 @@ if (token.roles?.includes('Reports.Viewer')) { ... }
 
 When `Allowed member types` includes `Applications`, App Roles appear as **application permissions** in the API Permissions tab of another App Registration. This is how daemon apps get role-based access to an API without a user.
 
+## Important Edge Cases
+
+- If a role is disabled, Microsoft notes it can **continue to appear in tokens for already assigned users, groups, or applications** until those assignments are removed.
+- If a **service principal** is placed in a group that has an app-role assignment, Microsoft notes the `roles` claim is **not emitted** for that service principal via group inheritance.
+
 ## Connections
 
 - [[App-Registration]] — where App Roles are defined
@@ -97,4 +106,5 @@ When `Allowed member types` includes `Applications`, App Roles appear as **appli
 - [[Scope]] — the delegated-permission counterpart (`scp` claim vs `roles` claim)
 - [[JWT]] — carries the `roles` claim
 - [[Microsoft-Entra-ID]] — issues the JWT with roles populated from assignments
+- [[Source---Microsoft-Learn-Entra-ID-App-Roles-Fact-Check]] — official-doc fact check for issuance and assignment edge cases
 - [[Source---Entra-ID-App-Roles-BFF-JWT-Signing]] — source session
