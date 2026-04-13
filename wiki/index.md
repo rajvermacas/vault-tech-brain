@@ -8,6 +8,7 @@
 - [[Source---Microsoft-Learn-Entra-ID-App-Roles-Fact-Check]] — Microsoft-doc fact check for app-role definition, assignment-required behavior, and token claim edge cases (2026-04-12)
 - [[Source---Microsoft-Learn-Conditional-Access-Overview]] — Microsoft-doc grounding for Conditional Access as an Entra policy engine (2026-04-12)
 - [[Source---Microsoft-Learn-Permissions-and-Consent-Overview]] — Microsoft-doc grounding for user/admin consent, delegated permissions, and app-only permissions (2026-04-12)
+- [[Source---Auth-Flows-Delegated-OID-Sub-Session]] — Session covering auth flow taxonomy correction, delegated permission semantics, BFF subsequent calls, scp fact-check, oid vs sub (2026-04-13)
 
 ## Entities
 - [[Vannevar-Bush]] — Engineer who proposed the Memex (1945), spiritual predecessor to the LLM Wiki
@@ -33,8 +34,11 @@
 - [[App-Roles]] — RBAC mechanism in Entra ID: definition on App Registration, assignment on Enterprise Application, enforced via roles JWT claim
 - [[Conditional-Access]] — Zero Trust policy engine in Entra ID: evaluates sign-in context and enforces access controls after first-factor auth
 - [[Consent]] — approval layer in Entra ID: users or admins authorize delegated or application permissions
-- [[BFF-Pattern]] — Backend for Frontend: backend exchanges auth code, stores token server-side, browser gets HttpOnly session cookie only
+- [[BFF-Pattern]] — Backend for Frontend: backend exchanges auth code, stores token server-side, browser gets HttpOnly session cookie only; Entra ID off the hot path for subsequent calls
 - [[XSS]] — Cross-site scripting: injected script attacks; fetch monkey-patching steals Bearer tokens even from memory
 - [[JWT-Signature-Verification]] — RS256 mechanics: hash(header.payload) then encrypt with private key; private key not an input to hash
+- [[Delegated-vs-Application-Permissions]] — Core split in Entra ID: whether a user is present in the flow; drives scp vs roles claim and consent rules
+- [[OID-and-Sub-Claims]] — JWT user identity claims: oid is tenant-wide stable (use for DB keys), sub is per-app scoped (privacy)
 
 ## Analyses
+- [[Auth-Flows-Taxonomy]] — Corrected taxonomy of Entra ID auth flows: user vs service × scp vs roles vs neither (2026-04-13)

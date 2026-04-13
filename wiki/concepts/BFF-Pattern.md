@@ -2,7 +2,7 @@
 title: "BFF Pattern"
 type: concept
 created: 2026-04-11
-updated: 2026-04-11
+updated: 2026-04-13
 sources:
   - "[[Source---Entra-ID-App-Roles-BFF-JWT-Signing]]"
 tags:
@@ -93,6 +93,51 @@ Cookie flags used:
 > [!warning]
 > Microsoft docs explicitly state: "Public clients, which include native applications and single page apps, must not use secrets or certificates when redeeming an authorization code." Pattern 1 is the sanctioned pure SPA flow. Pattern 2 requires the backend to act as a confidential client with its own [[App-Registration]].
 
+## Subsequent Calls — Entra ID Off the Hot Path
+
+After the initial authentication, **Entra ID is not involved in any normal API call**.
+
+```
+Every UI → Backend call:    Session cookie → local JWT check (no Entra ID)
+Every ~1 hour (silently):   Backend → Entra ID (refresh token exchange)
+On security events:         Entra ID → Backend (CAE revocation signal)
+```
+
+The full corrected ASCII for both phases:
+
+```
+                    AUTHENTICATION (once)
+
+Browser          BFF Backend          Entra ID        Resource Server
+   │                  │                   │                  │
+   │──/authorize─────────────────────────►│                  │
+   │                  │                   │ login UI         │
+   │◄─────────────────────────────────────│                  │
+   │──user credentials──────────────────►│                  │
+   │◄─────────────────auth code──────────│                  │
+   │──auth code──────►│                  │                  │
+   │                  │──code+secret────►│                  │
+   │                  │◄─access_token────│                  │
+   │                  │  (scp, oid, azp) │                  │
+   │                  │──store token (session store)         │
+   │◄──HttpOnly cookie│                  │                  │
+
+                    SUBSEQUENT CALLS (every request)
+
+Browser          BFF Backend          Entra ID        Resource Server
+   │                  │                   │                  │
+   │──session cookie─►│                  │                  │
+   │                  │ lookup token      │                  │
+   │                  │ validate JWT locally (JWKS cached)   │
+   │                  │──Bearer token───────────────────────►│
+   │                  │                  │                  │ check scp/roles
+   │◄─────────────────────────────────response──────────────│
+```
+
+Entra ID re-enters only for:
+1. **Token expiry** (~1 hour): backend silently exchanges `refresh_token` for a new `access_token`. User doesn't notice.
+2. **CAE (Continuous Access Evaluation)**: if account is disabled, password reset, or Conditional Access policy changes mid-session, Entra ID can push a revocation signal.
+
 ## Connections
 
 - [[OAuth-2.0-Authorization-Code-Flow]] — the underlying flow both patterns implement
@@ -101,4 +146,6 @@ Cookie flags used:
 - [[XSS]] — the primary attack the BFF pattern defends against
 - [[JWT]] — access token stored server-side, never exposed to browser
 - [[MSAL]] — handles Step 2-3 in both patterns; in BFF it does NOT do the token exchange
+- [[JWKS]] — public keys cached by backend for local JWT validation on every request
 - [[Source---Entra-ID-App-Roles-BFF-JWT-Signing]] — source session
+- [[Source---Auth-Flows-Delegated-OID-Sub-Session]] — subsequent calls clarification and ASCII correction

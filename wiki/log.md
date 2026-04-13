@@ -46,3 +46,10 @@ Pages updated: Microsoft-Entra-ID (added Conditional Access control layer), Serv
 Source: Microsoft Learn documentation captured in raw/microsoft-learn-permissions-consent-overview-2026-04-12.md.
 Pages created: Source---Microsoft-Learn-Permissions-and-Consent-Overview, Consent.
 Pages updated: Scope (explicit consent linkage), Microsoft-Entra-ID (consent control layer), index.md.
+
+## [2026-04-13] ingest | Auth Flows Taxonomy, Delegated Permissions, OID/Sub Session
+Source: Cowork session — session-auth-flows-delegated-oid-sub-2026-04-13.md.
+Key findings: (1) `scp` is absent in Client Credentials tokens — confirmed against Microsoft official docs. (2) Scope/App Roles are not mutually exclusive in user tokens. (3) "Delegated" on resource server = user-must-be-present declaration to Entra ID; says nothing about grant flow mechanics. (4) In BFF pattern, Entra ID is off the hot path for all subsequent calls — only re-enters for token refresh (~1hr) and CAE. (5) Delegated vs Application core distinction is user presence, not consent rules. (6) `oid` is tenant-wide stable; `sub` is per-app scoped.
+Pages created: Source---Auth-Flows-Delegated-OID-Sub-Session, Delegated-vs-Application-Permissions, OID-and-Sub-Claims, Auth-Flows-Taxonomy (analysis).
+Pages updated: BFF-Pattern (subsequent calls section + corrected ASCII diagram), index.md.
+Total: 1 raw source, 1 source page, 2 new concept pages, 1 new analysis page, 1 updated concept page.
