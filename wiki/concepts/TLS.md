@@ -63,3 +63,4 @@ Both parties present certificates. Used for service-to-service authentication (e
 - [[Certificate-Authority]] — who signs the certificate
 - [[CSR]] — how certificates are requested
 - [[Self-Signed-Certificate]] — when no public CA is used
+- [[HashiCorp-Vault]] — practical example: Vault as a TLS server with self-signed CA; mTLS for client connections

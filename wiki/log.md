@@ -58,3 +58,13 @@ Key findings: (1) `scp` is absent in Client Credentials tokens — confirmed aga
 Pages created: Source---Auth-Flows-Delegated-OID-Sub-Session, Delegated-vs-Application-Permissions, OID-and-Sub-Claims, Auth-Flows-Taxonomy (analysis).
 Pages updated: BFF-Pattern (subsequent calls section + corrected ASCII diagram), index.md.
 Total: 1 raw source, 1 source page, 2 new concept pages, 1 new analysis page, 1 updated concept page.
+
+## [2026-04-14] lint | Lint fixes — cross-links, new concept pages, decision guide
+Applied all 5 recommendations from the 2026-04-14 health check:
+1. Added [[Auth-Flows-Taxonomy]] cross-links to Delegated-vs-Application-Permissions, Scope, and App-Roles.
+2. Added [[HashiCorp-Vault]] cross-link to TLS for the mTLS scenario.
+3. Created Token-Expiry-and-Refresh concept page (access/refresh lifetimes, rotation, CAE).
+4. Created Multi-Tenant-and-Guest-SPN concept page (guest SPN, cross-tenant consent, CA across tenants).
+5. Created Auth-Decision-Guide analysis page (SPA vs BFF, App Roles vs Scopes, XSS, multi-tenant, oid vs sub).
+Pages created: Token-Expiry-and-Refresh, Multi-Tenant-and-Guest-SPN, Auth-Decision-Guide.
+Pages updated: Delegated-vs-Application-Permissions, Scope, App-Roles, TLS, index.md.

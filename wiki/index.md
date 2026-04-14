@@ -41,6 +41,8 @@
 - [[JWT-Signature-Verification]] — RS256 mechanics: hash(header.payload) then encrypt with private key; private key not an input to hash
 - [[Delegated-vs-Application-Permissions]] — Core split in Entra ID: whether a user is present in the flow; drives scp vs roles claim and consent rules
 - [[OID-and-Sub-Claims]] — JWT user identity claims: oid is tenant-wide stable (use for DB keys), sub is per-app scoped (privacy)
+- [[Token-Expiry-and-Refresh]] — Access/refresh/ID token lifetimes, refresh token rotation, sliding window, CAE revocation
+- [[Multi-Tenant-and-Guest-SPN]] — Cross-tenant apps: home vs guest SPN, per-tenant consent, Conditional Access across tenant boundaries
 - [[PKI]] — Public Key Infrastructure: chain-of-trust system underpinning TLS certificates
 - [[TLS]] — Transport Layer Security: protocol for encrypted, authenticated network connections
 - [[CSR]] — Certificate Signing Request: public key + identity sent to a CA for signing
@@ -51,3 +53,4 @@
 
 ## Analyses
 - [[Auth-Flows-Taxonomy]] — Corrected taxonomy of Entra ID auth flows: user vs service × scp vs roles vs neither (2026-04-13)
+- [[Auth-Decision-Guide]] — Navigation guide: SPA vs BFF, App Roles vs Scopes, XSS protection, multi-tenant, identifier claims (2026-04-14)

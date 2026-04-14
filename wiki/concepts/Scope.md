@@ -82,3 +82,4 @@ Entra ID's stage ensures the scope exists and the required [[Consent]] is in pla
 - [[OAuth-2.0-Authorization-Code-Flow]] — scope is requested in Step 1, carried in the token from Step 7 onward
 - [[Consent]] — approval layer that determines whether the requested scope can be granted
 - [[Microsoft-Entra-ID]] — checks scope existence and consent at issuance time
+- [[Auth-Flows-Taxonomy]] — shows where scopes (scp) appear vs roles in the full auth flow matrix

@@ -108,3 +108,4 @@ When `Allowed member types` includes `Applications`, App Roles appear as **appli
 - [[Microsoft-Entra-ID]] — issues the JWT with roles populated from assignments
 - [[Source---Microsoft-Learn-Entra-ID-App-Roles-Fact-Check]] — official-doc fact check for issuance and assignment edge cases
 - [[Source---Entra-ID-App-Roles-BFF-JWT-Signing]] — source session
+- [[Auth-Flows-Taxonomy]] — shows where roles claim appears vs scp in the full auth flow matrix

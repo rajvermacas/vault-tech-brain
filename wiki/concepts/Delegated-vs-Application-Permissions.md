@@ -76,3 +76,4 @@ Service calls API with secret    → Application → roles in token (if assigned
 - [[Service-Principal]] — what holds application permission grants
 - [[Microsoft-Entra-ID]] — enforces the distinction at token issuance
 - [[Source---Microsoft-Learn-Permissions-and-Consent-Overview]] — official doc grounding
+- [[Auth-Flows-Taxonomy]] — corrected taxonomy showing how delegated vs application maps to scp/roles/neither
