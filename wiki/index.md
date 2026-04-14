@@ -9,6 +9,7 @@
 - [[Source---Microsoft-Learn-Conditional-Access-Overview]] — Microsoft-doc grounding for Conditional Access as an Entra policy engine (2026-04-12)
 - [[Source---Microsoft-Learn-Permissions-and-Consent-Overview]] — Microsoft-doc grounding for user/admin consent, delegated permissions, and app-only permissions (2026-04-12)
 - [[Source---Auth-Flows-Delegated-OID-Sub-Session]] — Session covering auth flow taxonomy correction, delegated permission semantics, BFF subsequent calls, scp fact-check, oid vs sub (2026-04-13)
+- [[Source---Understanding-CSR-and-CER]] — TLS/SSL certificate lifecycle: CSR, CER/CRT, file formats, and HashiCorp Vault self-signed CA setup (2026-04-14)
 
 ## Entities
 - [[Vannevar-Bush]] — Engineer who proposed the Memex (1945), spiritual predecessor to the LLM Wiki
@@ -16,6 +17,7 @@
 - [[qmd]] — Local markdown search engine with BM25/vector hybrid search
 - [[Microsoft-Entra-ID]] — Microsoft's cloud identity service (formerly Azure AD), the authorization server for OAuth flows
 - [[MSAL]] — Microsoft Authentication Library: JavaScript library that orchestrates all token requests from the React frontend
+- [[HashiCorp-Vault]] — Secrets management tool; TLS server using self-signed CA; can also act as a CA via PKI secrets engine
 
 ## Concepts
 - [[LLM-Wiki-Pattern]] — Core methodology: LLM incrementally builds a persistent, compounding wiki instead of RAG
@@ -39,6 +41,13 @@
 - [[JWT-Signature-Verification]] — RS256 mechanics: hash(header.payload) then encrypt with private key; private key not an input to hash
 - [[Delegated-vs-Application-Permissions]] — Core split in Entra ID: whether a user is present in the flow; drives scp vs roles claim and consent rules
 - [[OID-and-Sub-Claims]] — JWT user identity claims: oid is tenant-wide stable (use for DB keys), sub is per-app scoped (privacy)
+- [[PKI]] — Public Key Infrastructure: chain-of-trust system underpinning TLS certificates
+- [[TLS]] — Transport Layer Security: protocol for encrypted, authenticated network connections
+- [[CSR]] — Certificate Signing Request: public key + identity sent to a CA for signing
+- [[X509-Certificate]] — Signed certificate artifact returned by a CA; contains public key in plaintext + CA signature
+- [[Certificate-Authority]] — Trusted party that validates identity and signs certificates
+- [[Self-Signed-Certificate]] — Certificate where issuer = subject; no third-party CA; clients must be given ca.crt manually
+- [[PEM-and-DER-Formats]] — Encoding/container format reference for PKI artifacts (.pem, .der, .pfx, .p12, .p7b)
 
 ## Analyses
 - [[Auth-Flows-Taxonomy]] — Corrected taxonomy of Entra ID auth flows: user vs service × scp vs roles vs neither (2026-04-13)
