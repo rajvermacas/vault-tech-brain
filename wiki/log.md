@@ -68,3 +68,17 @@ Applied all 5 recommendations from the 2026-04-14 health check:
 5. Created Auth-Decision-Guide analysis page (SPA vs BFF, App Roles vs Scopes, XSS, multi-tenant, oid vs sub).
 Pages created: Token-Expiry-and-Refresh, Multi-Tenant-and-Guest-SPN, Auth-Decision-Guide.
 Pages updated: Delegated-vs-Application-Permissions, Scope, App-Roles, TLS, index.md.
+
+## [2026-04-22] ingest | AKS Workload Identity — AZURE_FEDERATED_TOKEN_FILE
+Source: Cowork conversation — raw/aks-workload-identity-federated-token-2026-04-22.md. Covered what AZURE_FEDERATED_TOKEN_FILE is in AKS (env var injected by Workload Identity webhook pointing to a kubelet-managed projected SA token), who creates it (Mutating Admission Webhook for the env var + volume definition; kubelet for the actual token file), the full federated credential exchange flow (K8s JWT → Entra ID → Azure access token), and prerequisites (OIDC issuer, workload-identity flag, SA annotation, pod label, federated credential record).
+Pages created: Source---AKS-Workload-Identity-Federated-Token, AKS (entity), Azure-Workload-Identity, Mutating-Admission-Webhook, Federated-Credentials, Projected-Service-Account-Token.
+Pages updated: Microsoft-Entra-ID (added Workload Identity section), index.md.
+Total: 1 raw source, 1 source page, 1 new entity page, 4 new concept pages, 1 updated entity page.
+
+## [2026-04-22] lint | Post-ingest health check
+Scanned all 52 wiki pages (up from 45).
+Broken links: 1 found and fixed — Source---AKS-Workload-Identity-Federated-Token had a raw file path as a wikilink `[[raw/aks-...]]`; converted to plain text reference since raw files are not wiki pages.
+Orphan pages: 0 — all 7 new pages are well-linked (8–12 inbound links each).
+Contradictions: none found. The new Workload Identity material is additive to existing Entra ID and JWT concepts.
+Cross-link improvements: (1) JWT.md updated with new section distinguishing Entra-issued vs K8s-issued JWTs and linking to Projected-Service-Account-Token and Federated-Credentials. (2) Service-Principal.md updated with Workload Identity context section linking AKS, Federated-Credentials, and Delegated-vs-Application-Permissions.
+Open questions to investigate: (1) How does the AKS OIDC issuer rotate its signing keys, and how does Entra ID handle JWKS cache invalidation? (2) What happens during pod identity in multi-cluster setups — can one Federated Credential trust multiple cluster OIDC issuers? (3) How does Workload Identity interact with Conditional Access policies applied to the managed identity?

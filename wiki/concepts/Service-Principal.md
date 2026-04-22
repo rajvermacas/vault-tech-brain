@@ -2,11 +2,12 @@
 title: "Service Principal"
 type: concept
 created: 2026-04-10
-updated: 2026-04-12
+updated: 2026-04-22
 sources:
   - "[[Source---Entra-ID-OAuth-Reference]]"
   - "[[Source---Entra-ID-App-Roles-BFF-JWT-Signing]]"
   - "[[Source---Microsoft-Learn-Conditional-Access-Overview]]"
+  - "[[Source---AKS-Workload-Identity-Federated-Token]]"
 tags:
   - azure
   - identity
@@ -85,3 +86,7 @@ Permissions follow a **wishlist → stamp** model:
 - **Requested** → declared on the App Registration
 - **Granted** → written to the SPN at consent time
 - A token only carries granted permissions, never requested ones
+
+## Workload Identity Context
+
+In [[Azure-Workload-Identity]], an [[AKS]] pod authenticates to Azure as a managed identity (a special-purpose SPN). The pod never holds a client secret; instead it uses [[Federated-Credentials]] to exchange a Kubernetes-issued [[Projected-Service-Account-Token]] for an Azure access token tied to the managed identity's SPN. This is always application-permission auth (see [[Delegated-vs-Application-Permissions]]) — no user is present in the flow.

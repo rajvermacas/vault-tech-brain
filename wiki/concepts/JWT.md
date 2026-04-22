@@ -2,11 +2,12 @@
 title: "JWT"
 type: concept
 created: 2026-04-10
-updated: 2026-04-11
+updated: 2026-04-22
 sources:
   - "[[Source---Entra-ID-OAuth-Reference]]"
   - "[[Source---Entra-ID-Audience-Scopes-Deep-Dive]]"
   - "[[Source---Entra-ID-App-Roles-BFF-JWT-Signing]]"
+  - "[[Source---AKS-Workload-Identity-Federated-Token]]"
 tags:
   - authentication
   - security
@@ -91,3 +92,7 @@ The hash (SHA-256) and the encryption (RSA) are two separate sequential operatio
 ## The `roles` Claim
 
 Carries [[App-Roles]] assigned to the user via the Enterprise Application. Checked by the backend for RBAC decisions. Absent (not an empty array) when the user has no role assignments.
+
+## JWTs Beyond Entra ID — Kubernetes-Issued Tokens
+
+The JWT format is not exclusive to [[Microsoft-Entra-ID]]. In [[Azure-Workload-Identity]], Kubernetes itself acts as an OIDC issuer and emits short-lived JWTs for pod service accounts (see [[Projected-Service-Account-Token]]). These K8s-issued JWTs have a different `iss` (the cluster OIDC issuer URL) and `sub` (`system:serviceaccount:<namespace>:<name>`), but are otherwise structurally identical JWT documents. The verification mechanism (public key via [[JWKS]]) is the same — Entra ID fetches the AKS OIDC issuer's JWKS to verify the pod's token during [[Federated-Credentials]] exchange.
